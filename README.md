@@ -88,6 +88,4 @@ Although the multiplier remained negative, its magnitude became smaller:
 Pre-COVID       -0.0979
                     ↓
 Post-COVID      -0.0411
-```text
-Δlog(GDP)
-Δlog(GFCE)
+
