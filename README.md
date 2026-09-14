@@ -63,18 +63,17 @@ The estimated cumulative fiscal multiplier remained negative in both the pre-COV
 - **Pre-COVID (Q8): -0.0979**
 - **Post-COVID (Q8): -0.0411**
 
-This indicates that, within the estimated models, an increase in GFCE was associated with a decline in GDP over the 8-quarter horizon. :contentReference[oaicite:0]{index=0} :contentReference[oaicite:1]{index=1}
+This indicates that, within the estimated models, an increase in GFCE was associated with a decline in GDP over the 8-quarter horizon. :contentReference[oaicite:0]{index=0} 
 
----
 ---
 
 ### 2. Fiscal-output relationship weakened after COVID-19
 
 The most important finding is the change in the relationship between government spending and GDP.
 
-During the **pre-COVID period**, GFCE growth significantly Granger-caused GDP growth, indicating that past government spending contained predictive information about future GDP growth. :contentReference[oaicite:2]{index=2}
+During the **pre-COVID period**, GFCE growth significantly Granger-caused GDP growth, indicating that past government spending contained predictive information about future GDP growth. 
 
-In the **post-COVID period**, this relationship was no longer statistically significant. The Granger causality test produced a p-value of 0.135, meaning the null hypothesis could not be rejected. :contentReference[oaicite:3]{index=3}
+In the **post-COVID period**, this relationship was no longer statistically significant. The Granger causality test produced a p-value of 0.135, meaning the null hypothesis could not be rejected.
 
 **Interpretation:** The connection between government consumption expenditure and economic growth became substantially weaker after COVID-19.
 
