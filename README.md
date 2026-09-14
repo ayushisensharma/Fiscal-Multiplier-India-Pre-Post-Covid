@@ -6,7 +6,7 @@ This project examines the effectiveness of fiscal policy in India by estimating 
 
 The study investigates whether changes in **Government Final Consumption Expenditure (GFCE)** translated into changes in **Real GDP growth**, and whether this relationship changed during the post-COVID period.
 
-The analysis combines empirical time-series methods (VAR, Granger causality, impulse response functions) with the **IS-LM framework** to understand the transmission of fiscal policy in the Indian economy.
+The analysis uses empirical time-series methods (VAR, Granger causality, impulse response functions) to understand the transmission of fiscal policy in the Indian economy.
 
 ---
 
@@ -45,7 +45,9 @@ Both variables are transformed to **first differences of their logarithms** (Δl
 
 **2. VAR(1) estimation.** GDP and GFCE are modeled jointly using a reduced-form Vector Autoregression, since fiscal and economic activity are interdependent and 
 affect each other with a lag:
+
 Δln(GDP_t) = b0 + b1·Δln(GDP_t-1) + b2·Δln(GFCE_t-1)
+
 Δln(GFCE_t) = a0 + a1·Δln(GDP_t-1) + a2·Δln(GFCE_t-1)
 
 Separate VAR(1) models are estimated for the pre- and post-COVID periods to test whether the fiscal-output relationship structurally changed.
@@ -81,9 +83,10 @@ This points to a **structural regime shift**: government consumption spending an
 
 ### 3. The post-COVID multiplier was smaller in magnitude
 
-Pre-COVID −0.098
-↓
-Post-COVID −0.041
+Pre-COVID :−0.098
+
+Post-COVID :−0.041
+
 Although still negative, the multiplier's magnitude roughly halved — the drag from government spending on output became less pronounced, even as the *predictive* relationship (Granger causality) vanished entirely.
 
 ### 4. Both models passed diagnostic checks
