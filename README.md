@@ -6,7 +6,7 @@ This project examines the effectiveness of fiscal policy in India by estimating 
 
 The study investigates whether changes in **Government Final Consumption Expenditure (GFCE)** translated into changes in **Real GDP growth**, and whether this relationship changed during the post-COVID period.
 
-The analysis combines empirical time-series methods with the **IS-LM framework** to understand the transmission of fiscal policy in the Indian economy.
+The analysis combines empirical time-series methods (VAR, Granger causality, impulse response functions) with the **IS-LM framework** to understand the transmission of fiscal policy in the Indian economy.
 
 ---
 
@@ -16,8 +16,8 @@ The analysis combines empirical time-series methods with the **IS-LM framework**
 
 The study compares the relationship between GDP growth and government consumption expenditure across two periods:
 
-- **Pre-COVID:** 2015–2019
-- **Post-COVID:** 2020–2024
+- **Pre-COVID:** FY2015–2019
+- **Post-COVID:** FY2020–2024
 
 ---
 
@@ -27,64 +27,65 @@ The analysis uses quarterly macroeconomic data for India.
 
 ### Variables
 
-**Real GDP**
+**Real GDP** — Inflation-adjusted (constant price, base year 2011–12) value of economic output.
 
-Measures the inflation-adjusted value of economic output.
+**Government Final Consumption Expenditure (GFCE)** — Government spending on goods and services, including salaries, defence, health, and education. Note: GFCE excludes capital expenditure, since the focus here is on the type of spending that dominated the COVID response (health, social support, subsidies) rather than capital formation.
 
-**Government Final Consumption Expenditure (GFCE)**
-
-Measures government spending on goods and services, including areas such as salaries, defence, health and education.
-
-The study uses the change in the logarithm of GDP and GFCE. Taking the first difference of log values provides an approximation of percentage growth.
+Both variables are transformed to **first differences of their logarithms** (Δln), which approximates percentage growth and helps address the non-stationarity caused by their long-run upward trends.
 
 ### Data Source
 
-The primary data source is the:
-
-- Reserve Bank of India (RBI)
-- Handbook of Statistics on Indian Economy
+- Reserve Bank of India (RBI), Handbook of Statistics on Indian Economy
 
 ---
 
 ## 🧮 Methodology
 
-The analysis follows a time-series approach to estimate the fiscal multiplier.
+**1. Stationarity check (ADF test).** Before modeling, the Augmented Dickey-Fuller test is run on both Δln(GDP) and Δln(GFCE) for each sub-period. Non-stationary series would produce spurious regressions, so this step confirms both series are stationary after differencing. With a small sample (~20 quarterly observations per period), the optimal lag length is 1.
 
-### 1. Log Transformation and Differencing
+**2. VAR(1) estimation.** GDP and GFCE are modeled jointly using a reduced-form Vector Autoregression, since fiscal and economic activity are interdependent and 
+affect each other with a lag:
+Δln(GDP_t) = b0 + b1·Δln(GDP_t-1) + b2·Δln(GFCE_t-1)
+Δln(GFCE_t) = a0 + a1·Δln(GDP_t-1) + a2·Δln(GFCE_t-1)
 
-GDP and GFCE have strong trends over time and may be non-stationary.
+Separate VAR(1) models are estimated for the pre- and post-COVID periods to test whether the fiscal-output relationship structurally changed.
 
-## 🔑 Key Insights
+**3. Diagnostics.**
+- **Stability:** roots of the characteristic polynomial must be < 1 for impulse responses to be valid.
+- **Portmanteau test:** checks residuals for serial correlation (H₀: no serial correlation).
 
-###1. Fiscal multiplier was negative in both periods
+**4. Granger causality.** Tests whether past GFCE growth has predictive power over future GDP growth (and vice versa) in each period.
 
-The estimated cumulative fiscal multiplier remained negative in both the pre-COVID and post-COVID periods.
+**5. Impulse Response Functions (IRF).** Traces how GDP growth responds over 8 quarters (2 years) to a one-standard-deviation shock in GFCE growth, holding everything else constant.
 
-- **Pre-COVID (Q8): -0.0979**
-- **Post-COVID (Q8): -0.0411**
-
-This indicates that, within the estimated models, an increase in GFCE was associated with a decline in GDP over the 8-quarter horizon. :contentReference[oaicite:0]{index=0} 
-
----
-
-### 2. Fiscal-output relationship weakened after COVID-19
-
-The most important finding is the change in the relationship between government spending and GDP.
-
-During the **pre-COVID period**, GFCE growth significantly Granger-caused GDP growth, indicating that past government spending contained predictive information about future GDP growth. 
-
-In the **post-COVID period**, this relationship was no longer statistically significant. The Granger causality test produced a p-value of 0.135, meaning the null hypothesis could not be rejected.
-
-**Interpretation:** The connection between government consumption expenditure and economic growth became substantially weaker after COVID-19.
+**6. Fiscal multiplier.** Computed as the ratio of cumulative GDP response to cumulative GFCE response at each horizon *t*:
+Multiplier_t = cumulative GDP response_t / cumulative GFCE response_t
 
 ---
 
-### 3. The post-COVID multiplier was less negative
+## 🔑 Key Findings
 
-Although the multiplier remained negative, its magnitude became smaller:
+### 1. The fiscal multiplier was negative in both periods
 
-```text
-Pre-COVID       -0.0979
-                    ↓
-Post-COVID      -0.0411
+- **Pre-COVID cumulative multiplier (Q8): −0.098**
+- **Post-COVID cumulative multiplier (Q8): −0.041**
 
+In both periods, an increase in GFCE was associated with a decline in GDP over the 8-quarter horizon rather than an expansion. Likely explanations discussed in the full report: GFCE (unlike capital expenditure) has a weaker demand multiplier; rising public borrowing may have crowded out private investment via higher interest rates; and implementation lags mean spending in one quarter doesn't show up in output until later.
+
+### 2. The fiscal–output relationship weakened after COVID-19
+
+- **Pre-COVID:** GFCE growth significantly Granger-caused GDP growth (p = 0.0002), and there was also a significant instantaneous relationship (p = 0.012).
+- **Post-COVID:** This relationship was no longer significant — GFCE growth could not significantly predict future GDP growth (p = 0.135), and the instantaneous link also disappeared (p = 0.173).
+
+This points to a **structural regime shift**: government consumption spending and output growth became effectively decoupled after COVID, with post-COVID GDP dynamics more likely driven by non-fiscal factors (exports, private investment recovery, global demand).
+
+### 3. The post-COVID multiplier was smaller in magnitude
+
+Pre-COVID −0.098
+↓
+Post-COVID −0.041
+Although still negative, the multiplier's magnitude roughly halved — the drag from government spending on output became less pronounced, even as the *predictive* relationship (Granger causality) vanished entirely.
+
+### 4. Both models passed diagnostic checks
+
+Stability tests (all polynomial roots < 1) and Portmanteau tests (no significant residual autocorrelation) held in both periods, confirming the results reflect genuine changes in the economic relationship rather than model misspecification.
